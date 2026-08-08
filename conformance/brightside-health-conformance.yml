@@ -1,0 +1,52 @@
+generated: '2026-08-08'
+method: searched
+source: https://www.brightside.com/about/
+note: >-
+  Brightside Health publishes no public API, so no API-level standard (OAuth 2.0, OIDC, FHIR, SMART
+  on FHIR, RFC 9457, JSON:API) can be asserted or refuted from a machine-readable contract. What the
+  company does publish is a platform-level security and healthcare compliance posture, recorded
+  below with the page it was read from. Entries marked conforms: null are unknown — not failures.
+standards:
+- id: hitrust-csf
+  name: HITRUST CSF Certified
+  conforms: true
+  evidence: >-
+    "The Brightside platform and all supporting infrastructure has earned Certified status for
+    information security by HITRUST" — https://www.brightside.com/about/ (HTTP 200). The same page's
+    company timeline dates the certification to NOV 2022.
+- id: hipaa
+  name: HIPAA
+  conforms: true
+  evidence: >-
+    "...and is HIPAA compliant" — https://www.brightside.com/about/ (HTTP 200). Brightside also
+    publishes a HIPAA Notice of Privacy Practices at https://www.brightside.com/npp/ (HTTP 200) in
+    English plus 12 additional languages.
+- id: section-1557-language-access
+  name: ACA Section 1557 notice of non-discrimination and language access
+  conforms: true
+  evidence: >-
+    Notice of non-discrimination and member rights are published in 14 languages under
+    /es/, /fr/, /ar/, /vi/, /tl/, /ru/, /pt/, /pl/, /zh-cn/, /zh-yue/ and others in
+    https://www.brightside.com/page-sitemap.xml (HTTP 200).
+- id: soc2
+  name: SOC 2
+  conforms: null
+  evidence: >-
+    Not published. No trust center, no /security page and no /trust page exist —
+    https://www.brightside.com/security/ and https://www.brightside.com/trust/ both return HTTP 404.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: null
+  evidence: No public API or securityScheme to assess; api.brightside.com is a private app backend.
+- id: fhir-r4
+  name: HL7 FHIR R4
+  conforms: null
+  evidence: >-
+    Brightside markets "Integration with your EHR for seamless discharge planning" and "ADT
+    notifications" on https://www.brightside.com/partners/health-systems/ (HTTP 200), which implies
+    an HL7 v2 ADT and/or FHIR exchange with partner health systems, but no interface specification,
+    implementation guide or conformance statement is published. Unverifiable from public material.
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details
+  conforms: null
+  evidence: No public OpenAPI or error reference to derive from.

@@ -1,17 +1,66 @@
 aid: brightside-health
 name: Brightside Health
-description: 'Brightside Health is a company surfaced via the API Evangelist harvest backlog (source:
-  secondary-market) and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Brightside Health is a U.S. national telehealth provider of evidence-based psychiatry (medication
+  management) and therapy for people aged 13 and older, founded in 2017 and headquartered in San
+  Francisco. It treats the full acuity spectrum — depression, anxiety, bipolar and mood disorders,
+  OCD, PTSD, ADHD, insomnia, substance and alcohol use disorder, and behavioral addictions — using
+  measurement-based care (PHQ-9/GAD-7 tracking) and precision prescribing, and runs virtual
+  Intensive Outpatient Programs plus an evidence-based Suicide Prevention Program (Crisis Care) for
+  elevated suicide risk. Care is delivered in all 50 states, in-network with Aetna, Cigna,
+  Optum/UnitedHealthcare, Blue Cross Blue Shield, Ambetter, Medicare and Medicaid, alongside
+  self-pay. The platform is HIPAA compliant and has earned HITRUST Certified status for information
+  security. Brightside sells to health plans, health systems and medical groups with EHR
+  integration, ADT notifications and a patient referral portal, but publishes no public developer
+  program, API reference or machine-readable specification — partner integration is arranged
+  through its partnerships team.
+image: https://www.brightside.com/wp-content/uploads/2023/05/social-share-banner.png
 url: https://raw.githubusercontent.com/api-evangelist/brightside-health/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+x-enrichment:
+  date: '2026-08-08'
+  status: minimal
+  artifacts_added: 4
+  pass: local-v1
+x-coverage:
+  state: gated
+  reason: sales-gate
+  detail: >-
+    Brightside Health markets a real programmatic surface to health systems — "Integration with your
+    EHR for seamless discharge planning", "ADT notifications" and a Patient Referral Portal — but the
+    only route to it is a "Contact our Partnership Team / Get in touch" form: there is no developer
+    site (/developers/, /api/ and /status/ all 404), no reference, and no specification, while
+    api.brightside.com is the private patient-app backend that answers every anonymous request with a
+    Cloudflare bot challenge.
+  evidence:
+  - url: https://www.brightside.com/partners/health-systems/
+    status: 200
+  - url: https://www.brightside.com/developers/
+    status: 404
+  - url: https://www.brightside.com/openapi.json
+    status: 404
+  - url: https://api.brightside.com/openapi.json
+    status: 403
+  - url: https://www.brightside.com/llms.txt
+    status: 200
+  checked: '2026-08-08'
+specificationVersion: '0.21'
 created: '2026-08-08'
 modified: '2026-08-08'
 tags:
-- Company
+- telehealth
+- mental-health
+- behavioral-health
+- psychiatry
+- therapy
+- digital-health
+- healthcare
+- telemedicine
+- medication-management
+- substance-use-disorder
+- suicide-prevention
+- health-plans
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -19,5 +68,35 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/brightside-health-domain-security.yml
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://www.brightside.com/
+- type: About
+  url: https://www.brightside.com/about/
+- type: Support
+  url: https://www.brightside.com/contact/
+- type: HelpCenter
+  url: https://www.brightside.com/faq/
+- type: Blog
+  url: https://www.brightside.com/blog/
+- type: Press
+  url: https://www.brightside.com/press-releases/
+- type: Partners
+  url: https://www.brightside.com/partners/
+- type: Pricing
+  url: https://www.brightside.com/online-care-affordable/
+- type: SignUp
+  url: https://app.brightside.com/
+- type: TermsOfService
+  url: https://www.brightside.com/tou/
+- type: PrivacyPolicy
+  url: https://www.brightside.com/privacy/
+- type: GitHubOrganization
+  url: https://github.com/brightsidehealth
+- type: Compliance
+  url: https://www.brightside.com/about/
+- type: LLMsTxt
+  url: llms/brightside-health-llms.txt
+- type: Conformance
+  url: conformance/brightside-health-conformance.yml

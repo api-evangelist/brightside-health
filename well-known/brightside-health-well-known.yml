@@ -1,0 +1,48 @@
+generated: '2026-08-08'
+method: probed
+source: live GET of /.well-known/* on every Brightside Health host
+summary:
+  documents_found: 0
+  note: >-
+    No /.well-known/ discovery document is published on any Brightside Health host. This file records
+    the probe so the absence is evidenced rather than assumed; no WellKnown or SecurityTxt pointer is
+    wired in apis.yml because nothing was found.
+hosts:
+- host: https://www.brightside.com
+  role: marketing website (WordPress)
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/mcp.json, status: 404}
+- host: https://api.brightside.com
+  role: private backend for the app.brightside.com patient application
+  note: >-
+    Host resolves and is fronted by Cloudflare, which answers every anonymous request with a
+    "Just a moment..." bot-challenge interstitial. No document could be read; the 403s below are the
+    challenge, not an origin response.
+  documents:
+  - {path: /.well-known/security.txt, status: 403, body: cloudflare-bot-challenge}
+  - {path: /.well-known/openid-configuration, status: 403, body: cloudflare-bot-challenge}
+  - {path: /.well-known/oauth-authorization-server, status: 403, body: cloudflare-bot-challenge}
+  - {path: /.well-known/oauth-protected-resource, status: 403, body: cloudflare-bot-challenge}
+  - {path: /.well-known/api-catalog, status: 403, body: cloudflare-bot-challenge}
+  - {path: /.well-known/ai-plugin.json, status: 403, body: cloudflare-bot-challenge}
+  - {path: /.well-known/agent-card.json, status: 403, body: cloudflare-bot-challenge}
+  - {path: /.well-known/agent.json, status: 403, body: cloudflare-bot-challenge}
+  - {path: /.well-known/mcp.json, status: 403, body: cloudflare-bot-challenge}
+- host: https://app.brightside.com
+  role: patient application (single-page app)
+  note: >-
+    FALSE-POSITIVE REJECTED. Every /.well-known/* path returns 302 to the application shell, which
+    then answers 200 with 137 KB of identical HTML. Followed with redirects this looks like a 200 on
+    /.well-known/agent-card.json; it is an SPA catch-all, not an agent card. No A2A artifact written.
+  documents:
+  - {path: /.well-known/agent-card.json, status: 302, redirect_to: app shell, content_type: text/html}
+  - {path: /.well-known/agent.json, status: 302, redirect_to: app shell, content_type: text/html}
+  - {path: /.well-known/security.txt, status: 302, redirect_to: app shell, content_type: text/html}

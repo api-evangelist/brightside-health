@@ -42,5 +42,17 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Brightside Health is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+Brightside Health is a U.S. national telehealth provider of evidence-based psychiatry (medication
+management) and therapy for people aged 13 and older, founded in 2017 and headquartered in San
+Francisco. It treats the full acuity spectrum using measurement-based care (PHQ-9/GAD-7) and
+precision prescribing, and runs virtual Intensive Outpatient Programs plus an evidence-based
+Suicide Prevention Program. The platform is HIPAA compliant and HITRUST Certified.
+
+Brightside markets EHR integration, ADT notifications and a patient referral portal to health
+plans, health systems and medical groups, but publishes **no public developer program, API
+reference or machine-readable specification** — partner integration is arranged through its
+partnerships team.
+
+- https://www.brightside.com/
+- https://www.brightside.com/partners/
+- https://github.com/brightsidehealth

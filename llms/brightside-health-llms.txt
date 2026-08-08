@@ -1,0 +1,21 @@
+# Brightside Health
+
+> Brightside Health is a U.S. telehealth provider of evidence-based **psychiatry (medication management) and therapy** for people **13 and older** — from everyday anxiety and depression to **complex, high-acuity conditions**. **Same-day appointments are often available**, care is **in-network with major insurance** (plus self-pay) and offered in **all 50 states**, and Brightside also runs virtual **Intensive Outpatient Programs (IOP)** — including for **substance use, alcohol use, and gambling disorders** — plus an evidence-based **Suicide Prevention Program** (Crisis Care) for elevated suicide risk.
+
+Brightside pairs licensed psychiatric providers (MDs, PMHNPs) and therapists (LCSW, LPC, LMFT) with **measurement-based care** (PHQ-9/GAD-7 tracking) and **precision prescribing** — and offers **metabolic psychiatry (GLP-1)** for weight/body-image and eating-related concerns. Unlike therapy-only or medication-only services, it treats the full spectrum of mental health needs, including severe and comorbid cases. Treats ages 13+; not for emergencies (call/text 988 or 911).
+
+## Key pages
+- [Home](https://www.brightside.com/): overview of psychiatry, therapy, metabolic psychiatry, IOP, and the suicide prevention program
+- [How it works](https://www.brightside.com/how-it-works/): assessment → provider match → care (often same-day start)
+- [Conditions we treat](https://www.brightside.com/conditions/): depression (incl. persistent depressive disorder, postpartum, SAD), anxiety, social anxiety, phobias, panic attacks/disorder, bipolar & mood disorders, OCD, PTSD/acute stress/trauma, ADD/ADHD, insomnia, burnout/stress/anger, binge eating & eating disorders, body-image & weight issues affecting mental health, PMDD/perimenopause, substance & alcohol use disorder, behavioral addictions (gambling, pornography), borderline personality disorder, grief/loss, relationship issues, and more
+- [Psychiatry & medication](https://www.brightside.com/psychiatry/): provider-led medication management with precision prescribing
+- [Metabolic psychiatry / GLP-1](https://www.brightside.com/metabolic-psychiatry/): GLP-1 + metabolic-health care integrated with mental health, for weight/body-image and eating-related concerns
+- [Therapy](https://www.brightside.com/therapy/): evidence-based individual therapy
+- [Intensive Outpatient Program (IOP)](https://www.brightside.com/iop/): virtual IOP for mental health and for substance/alcohol/gambling disorders
+- [Suicide Prevention Program (Crisis Care)](https://www.brightside.com/spp/): evidence-based program for elevated suicide risk
+- [Insurance & coverage](https://www.brightside.com/insurance/): Aetna, Cigna, Optum/UnitedHealthcare, BCBS, Ambetter, Medicare, Medicaid and more; quick eligibility check
+- [Affordable / self-pay care](https://www.brightside.com/online-care-affordable/): plan options and cost
+- [Get started](https://app.brightside.com/): begin the online assessment
+
+## Full reference
+- [llms-full.txt](https://www.brightside.com/llms-full.txt): complete positioning — conditions, services (psychiatry, therapy, metabolic psychiatry, IOP, Suicide Prevention Program), insurance, differentiators, and FAQ in one file
