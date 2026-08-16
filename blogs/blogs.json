@@ -1,0 +1,14 @@
+{
+  "repo": "brightside-health",
+  "feeds": [
+    {
+      "source": "https://www.brightside.com/faq/",
+      "feed_url": "https://www.brightside.com/faq/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-15T12:22:01Z"
+}

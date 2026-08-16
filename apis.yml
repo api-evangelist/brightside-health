@@ -19,9 +19,9 @@ url: https://raw.githubusercontent.com/api-evangelist/brightside-health/refs/hea
 x-type: company
 x-source: harvest:secondary-market
 x-enrichment:
-  date: '2026-08-08'
+  date: '2026-08-15'
   status: minimal
-  artifacts_added: 4
+  artifacts_added: 5
   pass: local-v1
 x-coverage:
   state: gated
@@ -29,25 +29,31 @@ x-coverage:
   detail: >-
     Brightside Health markets a real programmatic surface to health systems — "Integration with your
     EHR for seamless discharge planning", "ADT notifications" and a Patient Referral Portal — but the
-    only route to it is a "Contact our Partnership Team / Get in touch" form: there is no developer
-    site (/developers/, /api/ and /status/ all 404), no reference, and no specification, while
-    api.brightside.com is the private patient-app backend that answers every anonymous request with a
-    Cloudflare bot challenge.
+    only route to it is a "Contact our Partnership Team / Get in touch" form; the 2026-08-15 sweep
+    confirmed api.brightside.com IS a live versioned Rails REST API whose /v1/ and /api/v1/ paths
+    reach the origin (JSON envelope {"errors":["Record not found"]}) while every other path is held
+    behind a Cloudflare bot challenge, and no route index, schema, docs or specification endpoint
+    exists on it — the only public machine-readable surface on any Brightside host is the marketing
+    site's WordPress REST index at /wp-json/, which is CMS boilerplate, not a product API.
   evidence:
   - url: https://www.brightside.com/partners/health-systems/
     status: 200
-  - url: https://www.brightside.com/developers/
-    status: 404
-  - url: https://www.brightside.com/openapi.json
+  - url: https://api.brightside.com/v1/openapi.json
     status: 404
   - url: https://api.brightside.com/openapi.json
     status: 403
+  - url: https://www.brightside.com/wp-json/
+    status: 200
+  - url: https://www.brightside.com/developers/
+    status: 404
+  - url: https://developer.brightside.com/
+    status: 0
   - url: https://www.brightside.com/llms.txt
     status: 200
-  checked: '2026-08-08'
+  checked: '2026-08-15'
 specificationVersion: '0.21'
 created: '2026-08-08'
-modified: '2026-08-08'
+modified: '2026-08-15'
 tags:
 - telehealth
 - mental-health
@@ -100,3 +106,9 @@ common:
   url: llms/brightside-health-llms.txt
 - type: Conformance
   url: conformance/brightside-health-conformance.yml
+- type: Conventions
+  url: conventions/brightside-health-conventions.yml
+- type: Lifecycle
+  url: lifecycle/brightside-health-lifecycle.yml
+- type: Careers
+  url: https://www.brightside.com/careers/
