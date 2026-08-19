@@ -1,0 +1,37 @@
+generated: '2026-08-15'
+method: searched
+source: https://www.brightside.com/online-care-affordable/
+plan_count: 0
+plans: []
+note: >-
+  Brightside Health publishes NO API plans. plan_count is 0 because there is no API to buy: there is
+  no developer program, no self-serve tier, no partner price list and no usage-based pricing. Access
+  to the programmatic capabilities the company markets to health systems (EHR integration, ADT
+  notifications, patient referral portal) is arranged entirely through the partnerships contact
+  form. No Plans pointer is wired in apis.yml, because a zero-plan record must not be advertised as
+  a published plan surface; the consumer Pricing link already sits in common[].
+consumer_care_pricing:
+  disclaimer: >-
+    NOT API PRICING. Recorded for completeness because it is the only published price list the
+    company has. These are per-patient clinical care plans sold to individuals, not API or partner
+    plans, and they must never be counted as plans[] by any downstream tool.
+  source: https://www.brightside.com/online-care-affordable/
+  status: 200
+  currency: USD
+  billing_period: monthly
+  tiers:
+  - {name: Psychiatry, self_pay: '$95/month', includes: psychiatric evaluation, medication management and ongoing support}
+  - {name: Therapy, self_pay: '$299/month', includes: 4 sessions per month and ongoing support}
+  - {name: Psychiatry + Therapy, self_pay: '$349/month', includes: psychiatric evaluation, medication management and 4 therapy sessions per month}
+  - {name: Suicide Prevention Program, self_pay: null, includes: no self-pay price published on the pricing page}
+  - {name: IOP for Mental Health, self_pay: null, includes: 'a care navigator verifies insurance coverage and provides a cost overview; select states only'}
+  insurance: >-
+    "$25" stated as the average copay per session with insurance, and "Copays as low as $0 with
+    insurance", with member responsibility varying by plan. In-network with Aetna, Cigna,
+    Optum/UnitedHealthcare, Blue Cross Blue Shield, Ambetter, Medicare and Medicaid.
+partner_pricing:
+  published: false
+  route: https://www.brightside.com/partners/ ("Contact our Partnership Team" / "Get in touch" form)
+  evidence: >-
+    The health-plans, health-systems and medical-groups partner pages (all HTTP 200) describe
+    capabilities but publish no rates, no contract terms and no plan structure.

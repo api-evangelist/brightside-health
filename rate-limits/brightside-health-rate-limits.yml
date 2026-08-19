@@ -1,0 +1,34 @@
+generated: '2026-08-15'
+method: probed
+source: >-
+  live unauthenticated responses from https://api.brightside.com/v1/ and
+  https://www.brightside.com/, observed 2026-08-15
+limit_count: 0
+limits: []
+note: >-
+  No rate limits are published and none could be observed. Brightside Health has no API
+  documentation to state limits in, and the private backend returns no rate-limit signal on any
+  anonymous response. No RateLimits pointer is wired in apis.yml — an honest zero is data, but it is
+  not a published rate-limit surface.
+response_headers_observed:
+  ratelimit_standard: []
+  x_ratelimit: []
+  retry_after: false
+  full_header_set_on_api_404: [date, content-type, x-frame-options, x-xss-protection, x-content-type-options,
+    x-download-options, x-permitted-cross-domain-policies, referrer-policy, cache-control, x-server-version,
+    x-server-sha, content-security-policy-report-only, x-request-id, x-runtime, vary, via, cf-cache-status,
+    server, cf-ray]
+  finding: >-
+    Not one of X-RateLimit-Limit / X-RateLimit-Remaining / X-RateLimit-Reset, the RFC-draft
+    RateLimit-* family, or Retry-After appears. An agent integrating with this platform has no
+    runtime throttling signal to read.
+throttling_observed:
+  edge: >-
+    Cloudflare enforces a bot challenge (HTTP 403 "Just a moment...") on api.brightside.com for
+    every path except /v1/ and /api/v1/, and the WP Engine edge in front of www.brightside.com began
+    returning HTTP 403 to repeated automated requests during this probe run. That is bot mitigation
+    and per-client blocking, not a published or documented rate limit, and it is recorded as an
+    observation rather than as a limit.
+  evidence:
+  - {url: 'https://api.brightside.com/openapi.json', status: 403, kind: cloudflare-bot-challenge}
+  - {url: 'https://www.brightside.com/online-care-affordable/', status: 403, kind: wp-engine edge block after repeated requests}

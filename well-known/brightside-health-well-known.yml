@@ -1,15 +1,16 @@
-generated: '2026-08-08'
+generated: '2026-08-15'
 method: probed
-source: live GET of /.well-known/* on every Brightside Health host
+source: live GET of /.well-known/* and contract-discovery paths on every Brightside Health host
 summary:
   documents_found: 0
   note: >-
     No /.well-known/ discovery document is published on any Brightside Health host. This file records
     the probe so the absence is evidenced rather than assumed; no WellKnown or SecurityTxt pointer is
-    wired in apis.yml because nothing was found.
+    wired in apis.yml because nothing was found. Re-probed 2026-08-15 with the same result as
+    2026-08-08, plus the wider contract-discovery sweep recorded below.
 hosts:
 - host: https://www.brightside.com
-  role: marketing website (WordPress)
+  role: marketing website (WordPress on WP Engine, fronted by Cloudflare)
   documents:
   - {path: /.well-known/security.txt, status: 404}
   - {path: /.well-known/openid-configuration, status: 404}
@@ -23,9 +24,9 @@ hosts:
 - host: https://api.brightside.com
   role: private backend for the app.brightside.com patient application
   note: >-
-    Host resolves and is fronted by Cloudflare, which answers every anonymous request with a
-    "Just a moment..." bot-challenge interstitial. No document could be read; the 403s below are the
-    challenge, not an origin response.
+    Cloudflare answers most anonymous requests with a "Just a moment..." bot-challenge interstitial
+    (HTTP 403). The 403s below are the challenge, not an origin response. NEW 2026-08-15: paths under
+    /v1/ and /api/v1/ DO reach the Rails origin — see contract_discovery below.
   documents:
   - {path: /.well-known/security.txt, status: 403, body: cloudflare-bot-challenge}
   - {path: /.well-known/openid-configuration, status: 403, body: cloudflare-bot-challenge}
@@ -36,13 +37,104 @@ hosts:
   - {path: /.well-known/agent-card.json, status: 403, body: cloudflare-bot-challenge}
   - {path: /.well-known/agent.json, status: 403, body: cloudflare-bot-challenge}
   - {path: /.well-known/mcp.json, status: 403, body: cloudflare-bot-challenge}
+  - {path: /v1/.well-known/openid-configuration, status: 404, body: '{"errors":["Record not found"]}'}
 - host: https://app.brightside.com
   role: patient application (single-page app)
   note: >-
     FALSE-POSITIVE REJECTED. Every /.well-known/* path returns 302 to the application shell, which
-    then answers 200 with 137 KB of identical HTML. Followed with redirects this looks like a 200 on
+    then answers 200 with identical HTML. Followed with redirects this looks like a 200 on
     /.well-known/agent-card.json; it is an SPA catch-all, not an agent card. No A2A artifact written.
   documents:
   - {path: /.well-known/agent-card.json, status: 302, redirect_to: app shell, content_type: text/html}
   - {path: /.well-known/agent.json, status: 302, redirect_to: app shell, content_type: text/html}
   - {path: /.well-known/security.txt, status: 302, redirect_to: app shell, content_type: text/html}
+  - {path: /openapi.json, status: 302, redirect_to: app shell, content_type: text/html}
+- host: subdomains that do not resolve
+  role: probed and confirmed absent (no DNS)
+  documents:
+  - {path: 'https://developer.brightside.com/', status: 000, note: NXDOMAIN / no TLS listener}
+  - {path: 'https://docs.brightside.com/', status: 000, note: NXDOMAIN / no TLS listener}
+  - {path: 'https://status.brightside.com/', status: 000, note: NXDOMAIN / no TLS listener}
+  - {path: 'https://trust.brightside.com/', status: 000, note: NXDOMAIN / no TLS listener}
+  - {path: 'https://security.brightside.com/', status: 000, note: NXDOMAIN / no TLS listener}
+
+# STEP 0b contract-discovery ledger — "hunt harder before concluding no spec"
+contract_discovery:
+  date: '2026-08-15'
+  verdict: no-published-machine-readable-contract
+  rest_openapi_probes:
+  - {url: 'https://www.brightside.com/openapi.json', status: 404, body: WordPress 404 HTML}
+  - {url: 'https://www.brightside.com/api/', status: 404, body: WordPress 404 HTML}
+  - {url: 'https://www.brightside.com/developers/', status: 404, body: WordPress 404 HTML}
+  - {url: 'https://api.brightside.com/openapi.json', status: 403, body: cloudflare-bot-challenge}
+  - {url: 'https://api.brightside.com/swagger.json', status: 403, body: cloudflare-bot-challenge}
+  - {url: 'https://api.brightside.com/api-docs', status: 403, body: cloudflare-bot-challenge}
+  - {url: 'https://api.brightside.com/docs', status: 403, body: cloudflare-bot-challenge}
+  - {url: 'https://api.brightside.com/redoc', status: 403, body: cloudflare-bot-challenge}
+  - {url: 'https://api.brightside.com/v1/openapi.json', status: 404, body: '{"errors":["Record not found"]}'}
+  - {url: 'https://api.brightside.com/v1/swagger.json', status: 404, body: '{"errors":["Record not found"]}'}
+  - {url: 'https://api.brightside.com/v1/api-docs', status: 404, body: '{"errors":["Record not found"]}'}
+  - {url: 'https://api.brightside.com/v1/schema', status: 404, body: '{"errors":["Record not found"]}'}
+  - {url: 'https://api.brightside.com/api/v1/openapi.json', status: 404, body: '{"errors":["Record not found"]}'}
+  - {url: 'https://api.brightside.com/v1/openapi.yaml', status: 404, body: Rails default 404 HTML}
+  graphql_probes:
+  - {url: 'https://api.brightside.com/graphql', status: 403, body: cloudflare-bot-challenge}
+  - {url: 'https://api.brightside.com/v1/graphql', status: 404, body: '{"errors":["Record not found"]}', finding: no GraphQL surface at the origin}
+  mcp_probes:
+  - {url: 'https://www.brightside.com/.well-known/mcp.json', status: 404}
+  - {url: 'https://api.brightside.com/.well-known/mcp.json', status: 403, body: cloudflare-bot-challenge}
+  - finding: >-
+      No hosted or stdio MCP server exists for Brightside Health. No mcp/ artifact was written: there
+      is no server to record and no OpenAPI to derive a candidate tool list from, and inventing an
+      endpoint would read as a verified agent surface.
+  a2a_probes:
+  - finding: >-
+      No agent card on any host. www 404, api 403 bot challenge, app 302 to the SPA shell. Per the
+      a2a recipe nothing was written — no stub, no candidate manifest.
+  origin_reachable_finding:
+    host: api.brightside.com
+    paths: ['/v1/*', '/api/v1/*']
+    status: 404
+    content_type: application/json
+    body: '{"errors":["Record not found"]}'
+    finding: >-
+      NEW THIS ROUND. Unlike every other path on the host, requests under /v1/ and /api/v1/ pass
+      through Cloudflare to the origin, which is a Ruby on Rails application. That confirms
+      api.brightside.com is a real versioned REST API — but every route on it is private to the
+      patient app, no route index, schema or documentation endpoint exists, and no path returns a
+      specification. See conventions/brightside-health-conventions.yml for the runtime semantics
+      observed on those responses.
+  wordpress_rest_api:
+    url: https://www.brightside.com/wp-json/
+    status: 200
+    content_type: application/json
+    bytes: 261620
+    routes: 284
+    namespaces: [oembed/1.0, 'wpe/cache-plugin/v1', 'wpe_sign_on_plugin/v1', 'cms-tpv/v1', 'cf7apps/v1',
+      'contact-form-7/v1', 'redirection/v1', 'yoast/v1', 'duplicate-post/v1', 'brightside/v1', 'fountain/v1',
+      'quadlayers/search-exclude', 'wp/v2', 'wp-site-health/v1', 'wp-block-editor/v1', 'wp-abilities/v1']
+    first_party_routes:
+    - {method: GET, route: /brightside/v1/decagon-auth, args: [user_id], purpose: 'issues an auth token for the Decagon AI support widget'}
+    - {method: POST, route: /fountain/v1/applicant, args: [], purpose: 'receives applicants from the Fountain hiring platform (careers site plumbing)'}
+    assessment: >-
+      NOT RECORDED AS A PRODUCT API, deliberately. The only public machine-readable API surface on a
+      Brightside-controlled host is the WordPress REST index of the marketing site: 284 routes, of
+      which 282 are WordPress core and installed-plugin boilerplate and 2 are Brightside-authored
+      site plumbing (a Decagon support-widget auth handoff and a Fountain careers-applicant hook).
+      No apis[] entry and no OpenAPI pointer was created from it, because deriving a contract from
+      CMS boilerplate would credit Brightside Health with a product API it has never shipped. It is
+      recorded here so a later round does not rediscover it and reach a different conclusion.
+  rejected_candidates:
+  - name: Brightside API Documentation (docs.gobrightside.com)
+    url: https://docs.gobrightside.com/
+    status: 200
+    machine_readable: https://docs.gobrightside.com/api/collections/5837423/TzCL98fJ (HTTP 200, Postman collection JSON)
+    reason: >-
+      OWNERSHIP FAILURE — DIFFERENT COMPANY. This is the top web-search result for "Brightside API"
+      and it is a real, parsing, publicly published partner API with sandbox/stage/production
+      environments and API-key auth. It belongs to Brightside (gobrightside.com), the financial-care
+      employee-benefit company, NOT Brightside Health (brightside.com), the telehealth psychiatry
+      provider. The collection judges itself: its resources are Client, Loan, Payroll, Employer
+      Payroll Schedules, Subscriptions and Webhooks, and its server is
+      sandbox-partner.gobrightside.com. Nothing in it is clinical. Saved nowhere; nothing derived
+      from it.

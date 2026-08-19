@@ -1,0 +1,115 @@
+generated: '2026-08-15'
+method: probed
+source: >-
+  live unauthenticated HTTP responses from https://api.brightside.com/v1/ and
+  https://www.brightside.com/llms.txt, observed 2026-08-15
+documented: false
+observed: true
+scope: >-
+  IMPORTANT — these are RUNTIME BEHAVIOURS OBSERVED ON LIVE RESPONSES, not conventions Brightside
+  Health publishes. The company has no developer documentation, no API reference and no
+  specification. Everything below was read off response bodies and headers of the private backend
+  that serves the app.brightside.com patient application, and is recorded so the surface is
+  measurable rather than assumed. Nothing here is a provider claim, and no Idempotency, Pagination
+  or ErrorCatalog pointer is wired, because no idempotency, pagination or error contract could be
+  observed or is published.
+platform:
+  host: api.brightside.com
+  stack: Ruby on Rails
+  evidence: >-
+    Unknown paths under /v1/ return the Rails JSON error envelope, and /v1/openapi.yaml returns the
+    stock Rails "The page you were looking for doesn't exist (404)" HTML page. Corroborated by the
+    GitHub organization's Rails-tooling forks (propshaft, puffing-billy, rspec_api_documentation).
+  edge: Cloudflare, with a bot-challenge interstitial on every path except /v1/ and /api/v1/
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: /v1/ and /api/v1/ reach the origin; /v2/ does not exist and is answered by the edge challenge
+  build_stamp:
+    headers: [x-server-version, x-server-sha]
+    observed: {x-server-version: 2026.08.15.1, x-server-sha: f5e22752ee9edfadaf184cfe9c345501793358b7}
+    note: >-
+      The backend advertises a date-stamped build (YYYY.MM.DD.n) and the exact commit SHA on every
+      response. Observed value was same-day, which indicates continuous deployment. This is a build
+      identifier, not an API version — the API version is the /v1 path segment.
+error_envelope:
+  format: proprietary
+  rfc9457: false
+  shape: '{"errors": ["<message>"]}'
+  content_type: application/json; charset=utf-8
+  observed_example: {status: 404, body: '{"errors":["Record not found"]}'}
+  note: >-
+    A bare array of message strings — no type URI, no title/detail/instance, no machine-readable
+    error code. Only the 404 case could be observed anonymously; every other status requires
+    credentials. No errors/ artifact was written because a single observed status is not an error
+    catalog and Brightside publishes no error reference.
+request_tracing:
+  header: x-request-id
+  observed: 9c86a07f-c4f9-4b8c-b3ae-1d36cf2145c2
+  correlation: server-generated UUID returned on every response
+  timing_header: {header: x-runtime, observed: '0.006881', unit: seconds}
+rate_limit_signaling:
+  headers_observed: []
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header appeared on any observed response. See
+    rate-limits/brightside-health-rate-limits.yml.
+authentication:
+  observed: none-anonymously
+  note: >-
+    No WWW-Authenticate challenge, no OAuth metadata document and no OIDC discovery document is
+    served. The patient application authenticates against this backend, but the scheme is not
+    disclosed on any anonymous response and no authentication/ artifact was derived — there is no
+    securityScheme, no docs page and no observable challenge to derive one from.
+caching:
+  api: 'cache-control: no-store on API responses'
+  static: 'cache-control: public, max-age=31536000 with ETag + Last-Modified on www static files'
+cors:
+  api: 'vary: Accept, Accept-Encoding, Origin (origin-sensitive; no wildcard observed)'
+  llms_txt: 'access-control-allow-origin: * on https://www.brightside.com/llms.txt'
+security_headers:
+  api_host:
+    x-frame-options: SAMEORIGIN
+    x-content-type-options: nosniff
+    x-xss-protection: '0'
+    x-download-options: noopen
+    x-permitted-cross-domain-policies: none
+    referrer-policy: strict-origin-when-cross-origin
+    content-security-policy: report-only (not enforcing)
+  www_host:
+    strict-transport-security: max-age=63072000; includeSubDomains; preload
+observed_service_topology:
+  source: >-
+    Read verbatim from the Content-Security-Policy-Report-Only header returned by
+    https://api.brightside.com/v1/ on 2026-08-15. The CSP names every host the patient application is
+    permitted to talk to, which makes the platform's integration surface publicly measurable even
+    though none of it is documented.
+  first_party_hosts: [api.brightside.com, ws.brightside.com, analytics.brightside.com, content.brightside.com,
+    content-static.brightside.com, ph.brightside.com, segment.brightside.com]
+  third_party_dependencies:
+  - {vendor: Health Gorilla, host: api.healthgorilla.com, category: health-data interoperability / clinical records exchange}
+  - {vendor: DoseSpot, host: my.dosespot.com, category: e-prescribing (ePrescribe / EPCS)}
+  - {vendor: LiveKit, host: brightside-prod-sxlgzoc2.livekit.cloud, category: real-time video (WebRTC)}
+  - {vendor: Daily.co, host: '*.daily.co / *.dailywebrtc.com', category: real-time video (WebRTC)}
+  - {vendor: Stream, host: chat.stream-io-api.com, category: in-app chat / messaging}
+  - {vendor: Stripe, host: js.stripe.com, category: payments}
+  - {vendor: Zendesk, host: brightsidehealth.zendesk.com, category: support}
+  - {vendor: Decagon, host: decagon.ai, category: AI support agent}
+  - {vendor: Datadog, host: browser-intake-datadoghq.com, category: observability}
+  - {vendor: PostHog, host: us.i.posthog.com, category: product analytics}
+  - {vendor: Segment, host: api.segment.io, category: customer data platform}
+  - {vendor: Amplitude, host: api.lab.amplitude.com, category: experimentation}
+  - {vendor: Smarty, host: us-street.api.smartystreets.com, category: address verification}
+  - {vendor: LegitScript, host: static.legitscript.com, category: telehealth certification badge}
+  finding: >-
+    Health Gorilla is the most consequential entry: it is the clinical-data network that plausibly
+    backs the "Integration with your EHR" and "ADT notifications" capabilities Brightside markets to
+    health systems at https://www.brightside.com/partners/health-systems/. Brightside itself
+    publishes no interface specification for that exchange — it appears to consume an intermediary's
+    network rather than expose a contract of its own. This is an inference from a CSP allowlist, not
+    a provider statement, and is recorded as such.
+cross_links:
+  well_known: well-known/brightside-health-well-known.yml
+  rate_limits: rate-limits/brightside-health-rate-limits.yml
+  lifecycle: lifecycle/brightside-health-lifecycle.yml
+  domain_security: security/brightside-health-domain-security.yml
+  conformance: conformance/brightside-health-conformance.yml

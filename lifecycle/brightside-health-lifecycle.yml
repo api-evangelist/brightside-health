@@ -1,0 +1,51 @@
+generated: '2026-08-15'
+method: probed
+source: >-
+  live probes of https://api.brightside.com/v1/, https://status.brightside.com/ (no DNS) and the
+  811-URL https://www.brightside.com/page-sitemap.xml (HTTP 200)
+documented: false
+note: >-
+  Brightside Health publishes no API lifecycle policy of any kind. The versioning entry below was
+  OBSERVED on the private backend, not read from documentation. Every other field is a recorded
+  absence. No StatusPage and no Deprecation pointer is wired in apis.yml, because neither a status
+  page nor a deprecation policy exists to point at.
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: null
+  method: probed
+  evidence: >-
+    /v1/ and /api/v1/ reach the Rails origin on api.brightside.com and return the JSON envelope
+    {"errors":["Record not found"]}; no other version prefix resolves.
+build_identifier:
+  headers: [x-server-version, x-server-sha]
+  observed: '2026.08.15.1 / f5e22752ee9edfadaf184cfe9c345501793358b7'
+  cadence_signal: >-
+    The observed build stamp was same-day, which indicates continuous deployment of the patient
+    platform. It is a deployment marker, not a published release train.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  evidence: >-
+    No Sunset or Deprecation header (RFC 8594) on any observed response; no deprecation, sunset or
+    API-policy page in the 811-URL page sitemap.
+sla:
+  url: null
+  uptime_target: null
+  evidence: No SLA, uptime commitment or service-terms page published outside the consumer Terms of Use.
+status_page:
+  url: null
+  probes:
+  - {url: 'https://status.brightside.com/', status: 000, note: does not resolve}
+  - {url: 'https://www.brightside.com/status/', status: 404}
+  evidence: >-
+    No status page on a Brightside-controlled host and no third-party status page (Statuspage,
+    Instatus, Better Stack) is referenced anywhere on the marketing site.
+changelog:
+  url: null
+  evidence: >-
+    No developer changelog, release notes or API updates page. The nearest dated public surfaces are
+    the press-release and article sitemaps (br_pressreleases-sitemap.xml, br_articles-sitemap.xml),
+    which are company news, not API change records. No changelog/ artifact was written.
+deprecated_operations: []

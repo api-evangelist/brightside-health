@@ -1,0 +1,54 @@
+generated: '2026-08-15'
+method: searched
+source: >-
+  npm registry search, PyPI, RubyGems, and the GitHub organization
+  https://github.com/brightsidehealth (GitHub REST API, HTTP 200)
+package_count: 0
+packages: []
+note: >-
+  Brightside Health publishes no client library on any public package registry. This is a recorded
+  absence, not an unchecked gap, and no Packages or SDKs pointer is wired in apis.yml because there
+  is nothing to point at. The company has no public API, so an SDK would have nothing to wrap.
+registries_checked:
+- registry: npm
+  query: https://registry.npmjs.org/-/v1/search?text=brightside%20health
+  status: 200
+  result: no first-party package; every hit belongs to an unrelated project
+- registry: pypi
+  query: https://pypi.org/pypi/brightside-health/json
+  status: 404
+  result: absent
+- registry: pypi
+  query: https://pypi.org/pypi/brightsidehealth/json
+  status: 404
+  result: absent
+- registry: pypi
+  query: https://pypi.org/pypi/brightside/json
+  status: 200
+  result: >-
+    NAMESAKE REJECTED. pypi.org/project/brightside/ 0.6.13 is "a command dispatcher and task queue to
+    support CQRS and microservices" by Ian Cooper, homepage github.com/BrighterCommand/Brightside.
+    Unrelated to Brightside Health.
+- registry: rubygems
+  query: https://rubygems.org/api/v1/gems/brightside.json
+  status: not-first-party
+  result: >-
+    Not claimed. Recorded for completeness because the api.brightside.com backend is a Ruby on Rails
+    application (see conventions/brightside-health-conventions.yml), so RubyGems is the registry a
+    first-party Brightside library would most plausibly appear on. None does.
+github_organization:
+  url: https://github.com/brightsidehealth
+  status: 200
+  public_repo_count: 13
+  first_party_repo_count: 0
+  finding: >-
+    All 13 public repositories are FORKS of third-party projects — auto-request-review, incident-bot,
+    rspec_api_documentation, composer-local-dev, propshaft, split_tests, deepface,
+    react-native-health, config-plugins, wkhtmltopdf_binary_gem, top_secret, puffing-billy,
+    react-native-webrtc. The organization publishes no original code, no SDK and no specification.
+  corroboration: >-
+    The fork set independently corroborates the observed stack: propshaft, puffing-billy,
+    rspec_api_documentation and wkhtmltopdf_binary_gem are Ruby on Rails tooling, and
+    react-native-webrtc / react-native-health / config-plugins are React Native + Expo, matching a
+    Rails API backend behind a React Native patient application.
+  most_recent_push: '2026-07-06'
