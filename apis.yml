@@ -66,18 +66,18 @@ specificationVersion: '0.23'
 created: '2026-08-08'
 modified: '2026-08-15'
 tags:
-- telehealth
-- mental-health
-- behavioral-health
-- psychiatry
-- therapy
-- digital-health
-- healthcare
-- telemedicine
-- medication-management
-- substance-use-disorder
-- suicide-prevention
-- health-plans
+- Telehealth
+- Mental Health
+- Behavioral Health
+- Psychiatry
+- Therapy
+- Digital Health
+- Healthcare
+- Telemedicine
+- Medication Management
+- Substance Use Disorder
+- Suicide Prevention
+- Health Plans
 tags_raw:
 - telehealth
 - mental-health
