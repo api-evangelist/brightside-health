@@ -64,17 +64,99 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Brightside Health is a U.S. national telehealth provider of evidence-based psychiatry (medication
-management) and therapy for people aged 13 and older, founded in 2017 and headquartered in San
-Francisco. It treats the full acuity spectrum using measurement-based care (PHQ-9/GAD-7) and
-precision prescribing, and runs virtual Intensive Outpatient Programs plus an evidence-based
-Suicide Prevention Program. The platform is HIPAA compliant and HITRUST Certified.
+Brightside Health is a U.S. national telehealth provider of evidence-based psychiatry (medication management) and therapy for people aged 13 and older, founded in 2017 and headquartered in San Francisco. It treats the full acuity spectrum — depression, anxiety, bipolar and mood disorders, OCD, PTSD, ADHD, insomnia, substance and alcohol use disorder, and behavioral addictions — using measurement-based care (PHQ-9/GAD-7 tracking) and precision prescribing, and runs virtual Intensive Outpatient Programs plus an evidence-based Suicide Prevention Program (Crisis Care) for elevated suicide risk. Care is delivered in all 50 states, in-network with Aetna, Cigna, Optum/UnitedHealthcare, Blue Cross Blue Shield, Ambetter, Medicare and Medicaid, alongside self-pay. The platform is HIPAA compliant and has earned HITRUST Certified status for information security. Brightside sells to health plans, health systems and medical groups with EHR integration, ADT notifications and a patient referral portal, but publishes no public developer program, API reference or machine-readable specification — partner integration is arranged through its partnerships team.
 
-Brightside markets EHR integration, ADT notifications and a patient referral portal to health
-plans, health systems and medical groups, but publishes **no public developer program, API
-reference or machine-readable specification** — partner integration is arranged through its
-partnerships team.
+**Areas:** Telehealth · Mental Health · Behavioral Health · Psychiatry · Therapy · Digital Health · Healthcare · Medication Management · Substance Use Disorder · Suicide Prevention · Health Plans
 
-- https://www.brightside.com/
-- https://www.brightside.com/partners/
-- https://github.com/brightsidehealth
+## Brightside Health on APIs.io
+
+Everything profiled for Brightside Health is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/brightside-health/](https://apis.io/providers/brightside-health/)** — or go straight to one of the APIs or properties below.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Brightside Health Domain Security](https://apis.io/security/brightside-health/brightside-health-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Brightside Health Plans Pricing](https://apis.io/plans/brightside-health/brightside-health-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Brightside Health Rate Limits](https://apis.io/rate-limits/brightside-health/brightside-health-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.brightside.com/)
+- [Pricing](https://www.brightside.com/online-care-affordable/)
+- [Sign up](https://app.brightside.com/)
+- [Support](https://www.brightside.com/contact/)
+- [Blog](https://www.brightside.com/blog/)
+- [Compliance](https://www.brightside.com/about/)
+- [Terms of service](https://www.brightside.com/tou/)
+- [Privacy policy](https://www.brightside.com/privacy/)
+- [GitHub](https://github.com/brightsidehealth)
+
+## API Evangelist rating
+
+**Kin Score 18.5** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 56.3 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 7.1 |
+| Access clarity | 39.5 |
+
+**Agent readiness 2.5** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 18.8** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/brightside-health/](https://apis.io/providers/brightside-health/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Brightside Health: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/brightside-health/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
